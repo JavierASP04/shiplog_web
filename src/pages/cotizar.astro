@@ -361,7 +361,8 @@ const countries = [
     }
 
     .step-header {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
 
     .step-header h1 {
@@ -370,46 +371,75 @@ const countries = [
     }
 
     .step-header p {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+    }
+
+    .back-button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
     }
 
     .countries-selector {
       grid-template-columns: 1fr;
-      gap: 0.75rem; /* Menor espacio entre opciones */
+      gap: 0.75rem; 
     }
 
     .country-option {
-      padding: 1rem 1.5rem; /* Menos padding vertical */
-      flex-direction: row; /* Lista horizontal en formato fila para móvil */
+      padding: 1rem 1.25rem; 
+      flex-direction: row; 
       justify-content: flex-start;
+      border-radius: 16px;
     }
 
     .country-flag {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     .country-name {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     .country-arrow {
-      margin-left: auto; /* Empuja la flecha a la derecha */
-      opacity: 1; /* Siempre visible en táctil para denotar "botón" */
+      margin-left: auto; 
+      opacity: 1; 
       transform: translateX(0);
     }
 
     .form-grid {
       grid-template-columns: 1fr;
-      gap: 1.25rem;
+      gap: 1rem;
     }
 
     .quote-form {
-      padding: 2rem 1.5rem;
-      border-radius: 20px;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra más suave en móvil */
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: #334155;
+    }
+
+    input, select, textarea {
+      padding: 0.85rem 1rem;
+      font-size: 16px; /* 16px evita que Safari en iOS haga auto-zoom al tocar el input */
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 10px;
+    }
+
+    textarea {
+      min-height: 80px; /* Textarea menos alto en móvil para no robar pantalla */
     }
 
     .btn-submit {
-      padding: 1.25rem 1.5rem;
+      padding: 1.1rem 1.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
     }
   }
 </style>
