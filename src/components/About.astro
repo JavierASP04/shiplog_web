@@ -560,8 +560,14 @@
   }
 
   @media (max-width: 768px) {
+    .about-header {
+      margin: 3rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
     .about-header h2 {
       font-size: 2.2rem;
+      line-height: 1.15;
     }
 
     .header-subtitle {
@@ -570,14 +576,35 @@
 
     .features-grid {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 0 1.5rem;
     }
 
     .feature-card {
-      padding: 2rem;
+      padding: 1.5rem;
+      flex-direction: column;
+      align-items: center; /* Centrar icono y texto en movil */
+      text-align: center;
+      gap: 1.25rem;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px); /* Menos movimiento en tactil */
+    }
+
+    .feature-stat {
+      width: 100%;
+      justify-content: center;
+      margin-top: 1rem;
     }
 
     .coverage-section {
       padding: 3rem 1.5rem;
+    }
+
+    .coverage-left {
+      text-align: center;
+      align-items: center;
     }
 
     .coverage-left h3 {
@@ -589,12 +616,21 @@
     }
 
     .coverage-stats-inline {
-      flex-direction: column;
-      gap: 1rem;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .stat-inline {
+      align-items: center;
+      flex: 1 1 calc(50% - 2rem);
     }
 
     .countries-grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
     }
 
     .country-flag {
@@ -605,6 +641,7 @@
       width: 100%;
       font-size: 0.95rem;
       padding: 1rem 1.5rem;
+      justify-content: center;
     }
   }
 </style>

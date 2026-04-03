@@ -311,6 +311,10 @@ const countries = [
 
   @media (max-width: 768px) {
     .map-wrapper {
+      padding: 0; /* Elimina márgenes laterales para un mapa full-width */
+    }
+
+    .map-wrapper h2, .section-subtitle {
       padding: 0 1.5rem;
     }
 
@@ -318,12 +322,19 @@ const countries = [
       padding: 4rem 0;
     }
 
+    .coverage-container {
+      border-radius: 0; /* Sin bordes curvos en móvil para fusionar con la pantalla */
+      border-left: none;
+      border-right: none;
+    }
+
     .map-section {
-      padding: 1.5rem;
+      padding: 0; /* Full bleed map */
     }
 
     .leaflet-map {
-      height: 400px;
+      height: 350px;
+      border-radius: 0;
     }
 
     .countries-sidebar {

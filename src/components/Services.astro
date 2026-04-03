@@ -424,26 +424,14 @@
   .service-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background: #1e3a8a;
-    color: white;
-    padding: 0.9rem 1.75rem;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
-    align-self: flex-start;
-  }
     gap: 0.75rem;
     background: #1e3a8a;
     color: white;
-    padding: 1.25rem 2.5rem;
+    padding: 1rem 2rem;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
     box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
     align-self: flex-start;
@@ -739,33 +727,42 @@
     }
 
     .services-header h2 {
-      font-size: 2rem;
+      font-size: 2.2rem;
+      line-height: 1.2;
     }
 
     .header-subtitle {
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     .service-content {
-      padding: 2rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      align-items: center; /* Center horizontally */
+    }
+
+    .service-icon {
+      margin: 0 auto 1.5rem auto; /* Center icon */
     }
 
     .service-content h3 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
 
-    .services-carousel {
-      padding: 0 2rem;
+    .service-features {
+      text-align: left; /* Keep checkmarks readable on the left */
+      width: 100%;
+      margin-bottom: 2rem;
     }
 
-    .carousel-btn {
-      width: 40px;
-      height: 40px;
+    .service-btn {
+      width: 100%;
+      justify-content: center;
+      align-self: center; /* Override flex-start */
     }
 
-    .carousel-btn svg {
-      width: 20px;
-      height: 20px;
+    .services-carousel-section {
+      padding: 4rem 0;
     }
 
     .services-container {
@@ -776,12 +773,41 @@
       font-size: 2.2rem;
     }
 
-    .service-card-large {
-      min-width: 320px;
+    .btn-quote {
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    /* Ocultar botones laterales de carrusel y habilitar swipe natural */
+    .carousel-btn {
+      display: none;
     }
 
     .services-carousel {
-      gap: 1rem;
+      padding: 0;
+    }
+
+    .carousel-track {
+      gap: 1.25rem;
+      padding: 1rem 1.5rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .service-card-large {
+      min-width: 85vw; /* Casi pantalla completa, deja asomarse a la siguiente tarjeta */
+      max-width: 85vw;
+      width: 85vw;
+      scroll-snap-align: center;
+    }
+
+    .service-card-content {
+      padding: 1.5rem;
+    }
+
+    .service-card-content h3 {
+      font-size: 1.3rem;
     }
   }
 </style>

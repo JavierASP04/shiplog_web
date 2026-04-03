@@ -356,20 +356,60 @@ const countries = [
   }
 
   @media (max-width: 768px) {
+    .quote-page {
+      padding: 6rem 0 3rem;
+    }
+
+    .step-header {
+      margin-bottom: 2rem;
+    }
+
     .step-header h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
+      line-height: 1.2;
+    }
+
+    .step-header p {
+      font-size: 1.1rem;
     }
 
     .countries-selector {
       grid-template-columns: 1fr;
+      gap: 0.75rem; /* Menor espacio entre opciones */
+    }
+
+    .country-option {
+      padding: 1rem 1.5rem; /* Menos padding vertical */
+      flex-direction: row; /* Lista horizontal en formato fila para móvil */
+      justify-content: flex-start;
+    }
+
+    .country-flag {
+      font-size: 2rem;
+    }
+
+    .country-name {
+      font-size: 1.1rem;
+    }
+
+    .country-arrow {
+      margin-left: auto; /* Empuja la flecha a la derecha */
+      opacity: 1; /* Siempre visible en táctil para denotar "botón" */
+      transform: translateX(0);
     }
 
     .form-grid {
       grid-template-columns: 1fr;
+      gap: 1.25rem;
     }
 
     .quote-form {
       padding: 2rem 1.5rem;
+      border-radius: 20px;
+    }
+
+    .btn-submit {
+      padding: 1.25rem 1.5rem;
     }
   }
 </style>

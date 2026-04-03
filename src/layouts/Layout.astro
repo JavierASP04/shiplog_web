@@ -31,13 +31,20 @@ const isQuotePage = Astro.url.pathname === '/cotizar';
               <span>Volver al Inicio</span>
             </a>
           ) : (
-            <ul class="nav-links">
-              <li><a href="/shiplog_web#inicio">Inicio</a></li>
-              <li><a href="/shiplog_web/nosotros">Nosotros</a></li>
-              <li><a href="/shiplog_web#servicios">Servicios</a></li>
-              <li><a href="/shiplog_web#rutas">Rutas</a></li>
-              <li><a href="/shiplog_web/cotizar" class="nav-cta">Cotizar</a></li>
-            </ul>
+            <>
+              <button class="mobile-menu-btn" aria-label="Menú">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </button>
+              <ul class="nav-links">
+                <li><a href="/shiplog_web#inicio">Inicio</a></li>
+                <li><a href="/shiplog_web/nosotros">Nosotros</a></li>
+                <li><a href="/shiplog_web#servicios">Servicios</a></li>
+                <li><a href="/shiplog_web#rutas">Rutas</a></li>
+                <li><a href="/shiplog_web/cotizar" class="nav-cta">Cotizar</a></li>
+              </ul>
+            </>
           )}
         </div>
       </nav>
@@ -252,6 +259,37 @@ const isQuotePage = Astro.url.pathname === '/cotizar';
     display: none !important;
   }
 
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .mobile-menu-btn .bar {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  /* Hamburger Animation */
+  .mobile-menu-btn.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .mobile-menu-btn.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-btn.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+
   section {
     padding: 4rem 0;
   }
@@ -407,9 +445,28 @@ const isQuotePage = Astro.url.pathname === '/cotizar';
   }
 
   @media (max-width: 768px) {
+    .mobile-menu-btn {
+      display: flex;
+    }
+
     .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--primary);
       flex-direction: column;
-      gap: 1rem;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      transition: clip-path 0.4s ease-in-out;
+    }
+
+    .nav-links.active {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     .footer-content {
@@ -453,6 +510,31 @@ const isQuotePage = Astro.url.pathname === '/cotizar';
 
   // Observar todos los elementos con clases de animación
   document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        
+        // Ensure menu has background when opened and not scrolled yet
+        const header = document.querySelector('header');
+        if (header && !header.classList.contains('scrolled') && mobileMenuBtn.classList.contains('active')) {
+          header.style.background = '#1e3a8a';
+        } else if (header && !header.classList.contains('scrolled')) {
+          header.style.background = '';
+        }
+      });
+      // Close menu on click link
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+    }
+
     const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
     animatedElements.forEach(el => observer.observe(el));
   });
