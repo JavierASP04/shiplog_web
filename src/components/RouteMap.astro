@@ -17,7 +17,11 @@ const countries = [
     
     <div class="coverage-container">
       <!-- Mapa más grande -->
-      <div class="map-section slide-in-left">
+      <div class="map-section slide-in-left" id="mapSection">
+        <div class="map-header-mobile">
+          <h3>Mapa de Cobertura</h3>
+          <button id="closeMapBtn" class="btn-close-map">✕ Cerrar</button>
+        </div>
         <div id="map" class="leaflet-map"></div>
       </div>
       
@@ -42,6 +46,11 @@ const countries = [
             </div>
           ))}
         </div>
+        
+        <button id="openMapBtn" class="btn-open-map">
+          🗺️ Ver Mapa Interactivo
+        </button>
+        
         
         <a href="/shiplog_web/cotizar" class="btn-coverage">
           <span>Solicitar Cotización</span>
@@ -94,6 +103,14 @@ const countries = [
     width: 100%;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(30,58,138,0.1);
+  }
+
+  .map-header-mobile {
+    display: none;
+  }
+
+  .btn-open-map {
+    display: none;
   }
 
   /* Sidebar de países */
@@ -311,7 +328,7 @@ const countries = [
 
   @media (max-width: 768px) {
     .map-wrapper {
-      padding: 0; /* Elimina márgenes laterales para un mapa full-width */
+      padding: 0; 
     }
 
     .map-wrapper h2, .section-subtitle {
@@ -323,33 +340,105 @@ const countries = [
     }
 
     .coverage-container {
-      border-radius: 0; /* Sin bordes curvos en móvil para fusionar con la pantalla */
+      border-radius: 0;
       border-left: none;
       border-right: none;
-    }
-
-    .map-section {
-      padding: 0; /* Full bleed map */
-    }
-
-    .leaflet-map {
-      height: 350px;
-      border-radius: 0;
     }
 
     .countries-sidebar {
       padding: 2rem 1.5rem;
     }
 
+    /* Mejora Móvil: Lista de países deslizable (swipe) */
     .countries-list {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
+      display: flex;
+      overflow-x: auto;
+      gap: 1.25rem;
+      padding-bottom: 1.5rem; 
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
     }
-  }
 
-  @media (max-width: 480px) {
-    .countries-list {
-      grid-template-columns: 1fr;
+    .country-item {
+      flex: 0 0 auto;
+      width: 140px;
+      scroll-snap-align: start;
+    }
+
+    .countries-list::-webkit-scrollbar {
+      display: none; /* Esconder barra para vista nativa */
+    }
+
+    /* Modal de Mapa Full-Screen en Móvil */
+    .map-section {
+      display: none; 
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: white;
+      flex-direction: column;
+      padding: 0;
+      animation: slideUpModal 0.3s ease-out forwards;
+    }
+
+    .map-section.active {
+      display: flex;
+    }
+
+    @keyframes slideUpModal {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .map-header-mobile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      z-index: 10;
+    }
+
+    .map-header-mobile h3 {
+      font-size: 1.25rem;
+      color: #0f172a;
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .btn-close-map {
+      background: #f1f5f9;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .leaflet-map {
+      flex: 1; /* Ocupa el resto de la pantalla en modal */
+      height: auto;
+      border-radius: 0;
+    }
+
+    /* Botón para abrir modal */
+    .btn-open-map {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: #f8fafc;
+      color: #1e3a8a;
+      border: 2px solid #e2e8f0;
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1.05rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
     }
   }
 </style>
@@ -428,6 +517,23 @@ const countries = [
       `);
     });
 
+    // Lógica para Modales de Mapa en Móvil
+    const mapSection = document.getElementById('mapSection');
+    const openMapBtn = document.getElementById('openMapBtn');
+    const closeMapBtn = document.getElementById('closeMapBtn');
+
+    if (openMapBtn && closeMapBtn && mapSection) {
+      openMapBtn.addEventListener('click', () => {
+        mapSection.classList.add('active');
+        // Obliga a Leaflet a recalcular su contenedor al volverse visible
+        setTimeout(() => map.invalidateSize(), 300);
+      });
+
+      closeMapBtn.addEventListener('click', () => {
+        mapSection.classList.remove('active');
+      });
+    }
+
     // Interacción con los items de países
     const countryItems = document.querySelectorAll('.country-item');
     countryItems.forEach(item => {
@@ -439,6 +545,12 @@ const countries = [
             animate: true,
             duration: 1
           });
+          
+          // Si estamos en móvil, abrir el mapa automáticamente al tocar un país
+          if (window.innerWidth <= 768 && mapSection) {
+            mapSection.classList.add('active');
+            setTimeout(() => map.invalidateSize(), 300);
+          }
         }
       });
     });
