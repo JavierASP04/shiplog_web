@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getImage } from "astro:assets";
+import quoteBg from "../assets/images/quote-background.jpg";
+
+const optimizedQuoteBg = await getImage({ src: quoteBg, format: 'avif' });
 
 const countries = [
   { name: "Argentina", flag: "🇦🇷", code: "AR" },
@@ -14,7 +18,7 @@ const countries = [
 
 <Layout title="Solicitar Cotización - ShipLog">
   <div class="quote-page">
-    <div class="quote-background"></div>
+    <div class="quote-background" style={`background-image: url(${optimizedQuoteBg.src});`}></div>
     
     <div class="quote-container">
       <!-- Paso 1: Selección de país -->
@@ -153,7 +157,6 @@ const countries = [
     position: absolute;
     inset: 0;
     /* AQUÍ VA TU IMAGEN DE FONDO */
-    background-image: url('/images/quote-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

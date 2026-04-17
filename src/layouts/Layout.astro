@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logoImage from '../assets/images/logo.avif';
+
 interface Props {
   title: string;
 }
@@ -21,7 +24,7 @@ const isQuotePage = Astro.url.pathname === '/cotizar';
       <nav class="navbar">
         <div class="container">
           <a href="/shiplog_web" class="logo">
-            <img src="/shiplog_web/images/logo.avif" alt="ShipLog" class="logo-image" />
+            <Image src={logoImage} alt="ShipLog" class="logo-image" />
           </a>
           {isQuotePage ? (
             <a href="/shiplog_web" class="btn-back-home">
@@ -59,7 +62,7 @@ const isQuotePage = Astro.url.pathname === '/cotizar';
         <div class="footer-content">
           <div class="footer-section">
             <div class="footer-logo">
-              <img src="/shiplog_web/images/logo.avif" alt="ShipLog" class="footer-logo-image" />
+              <Image src={logoImage} alt="ShipLog" class="footer-logo-image" />
             </div>
             <p>Soluciones logísticas para carga pesada en toda Sudamérica. Conectando negocios con transporte confiable y eficiente.</p>
             <div class="social-links">

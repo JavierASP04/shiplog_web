@@ -1,4 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import logisticaImg from '../assets/images/logistica.jpeg';
+import ftlImg from '../assets/images/ftl.jpeg';
+import ltlImg from '../assets/images/ltl.jpeg';
+import insuranceImg from '../assets/images/insurance.jpeg';
+import almcImg from '../assets/images/almc.jpeg';
+import asesoriaImg from '../assets/images/asesoria.png';
 ---
 
 <section id="servicios" class="services">
@@ -13,7 +20,7 @@
     <div class="services-grid">
       <div class="service-card featured fade-in" style="transition-delay: 0.1s">
         <div class="service-background">
-          <img src="/shiplog_web/images/logistica.jpeg" alt="Transporte de Carga Pesada" />
+          <Image src={logisticaImg} alt="Transporte de Carga Pesada" />
           <div class="service-gradient"></div>
         </div>
         <div class="service-content">
@@ -89,7 +96,7 @@
       <div class="carousel-track">
       <div class="service-card-large fade-in" style="transition-delay: 0.1s">
         <div class="service-card-image">
-          <img src="/shiplog_web/images/ftl.jpeg" alt="FTL Full Truckload" />
+          <Image src={ftlImg} alt="FTL Full Truckload" loading="lazy" />
           <div class="service-card-overlay"></div>
         </div>
         <div class="service-card-content">
@@ -100,7 +107,7 @@
 
       <div class="service-card-large fade-in" style="transition-delay: 0.2s">
         <div class="service-card-image">
-          <img src="/shiplog_web/images/ltl.jpeg" alt="LTL Less Than Truckload" />
+          <Image src={ltlImg} alt="LTL Less Than Truckload" loading="lazy" />
           <div class="service-card-overlay"></div>
         </div>
         <div class="service-card-content">
@@ -111,7 +118,7 @@
 
       <div class="service-card-large fade-in" style="transition-delay: 0.3s">
         <div class="service-card-image">
-          <img src="/shiplog_web/images/insurance.jpeg" alt="Seguro de carga" />
+          <Image src={insuranceImg} alt="Seguro de carga" loading="lazy" />
           <div class="service-card-overlay"></div>
         </div>
         <div class="service-card-content">
@@ -122,7 +129,7 @@
 
       <div class="service-card-large fade-in" style="transition-delay: 0.4s">
         <div class="service-card-image">
-          <img src="/shiplog_web/images/almc.jpeg" alt="Almacenamiento" />
+          <Image src={almcImg} alt="Almacenamiento" loading="lazy" />
           <div class="service-card-overlay"></div>
         </div>
         <div class="service-card-content">
@@ -133,7 +140,7 @@
 
       <div class="service-card-large fade-in" style="transition-delay: 0.5s">
         <div class="service-card-image">
-          <img src="/shiplog_web/images/logistica.jpeg" alt="Conectividad global" />
+          <Image src={logisticaImg} alt="Conectividad global" loading="lazy" />
           <div class="service-card-overlay"></div>
         </div>
         <div class="service-card-content">
@@ -143,7 +150,7 @@
       </div>
       <div class="service-card-large fade-in" style="transition-delay: 0.5s">
         <div class="service-card-image">
-          <img src="/shiplog_web/images/asesoria.png" alt="Conectividad global" />
+          <Image src={asesoriaImg} alt="Conectividad global" loading="lazy" />
           <div class="service-card-overlay"></div>
         </div>
         <div class="service-card-content">

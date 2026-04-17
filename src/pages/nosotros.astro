@@ -1,11 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
+
+// Importación de imágenes
+import heroBg from '../assets/images/hero-background.jpg';
+import cargaRefrigeradaImg from '../assets/images/cargarefrigerada.png';
+import cargaPeligrosaImg from '../assets/images/cargapeligrosa.png';
+import cargaGeneralImg from '../assets/images/cargageneral.png';
+import transporteContenedoresImg from '../assets/images/transportecontenedores.png';
+import semirremolqueAbiertoImg from '../assets/images/semirremolqueabierto.png';
+import siderImg from '../assets/images/sider.png';
+import furgonSecoImg from '../assets/images/furgonseco.png';
+import refrigeradoImg from '../assets/images/refrigerado.png';
+import camaBajaImg from '../assets/images/camabaja.png';
+
+const optimizedHeroBg = await getImage({ src: heroBg, format: 'avif' });
 ---
 
 <Layout title="Acerca de Nosotros - ShipLog">
   <!-- Hero Section -->
   <section class="about-hero">
-    <div class="hero-overlay"></div>
+    <div class="hero-overlay" style={`background-image: url(${optimizedHeroBg.src});`}></div>
     <div class="container">
       <div class="hero-content fade-in">
         <span class="hero-badge">Quiénes Somos</span>
@@ -20,7 +36,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="container">
       <div class="who-grid">
         <div class="who-image fade-in">
-          <img src="/shiplog_web/images/hero-background.jpg" alt="Global Shipping Logistics" />
+          <Image src={heroBg} alt="Global Shipping Logistics" />
         </div>
         <div class="who-content fade-in">
           <h2>Quiénes Somos</h2>
@@ -185,7 +201,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="cargo-grid">
         <div class="cargo-card fade-in" style="transition-delay: 0.1s">
           <div class="cargo-image">
-            <img src="/shiplog_web/images/hero-background.jpg" alt="Carga refrigerada" />
+            <Image src={cargaRefrigeradaImg} alt="Carga refrigerada" loading="lazy" />
             <div class="cargo-overlay"></div>
           </div>
           <div class="cargo-content">
@@ -195,7 +211,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="cargo-card fade-in" style="transition-delay: 0.2s">
           <div class="cargo-image">
-            <img src="/shiplog_web/images/hero-background.jpg" alt="Carga peligrosa" />
+            <Image src={cargaPeligrosaImg} alt="Carga peligrosa" loading="lazy" />
             <div class="cargo-overlay"></div>
           </div>
           <div class="cargo-content">
@@ -205,7 +221,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="cargo-card fade-in" style="transition-delay: 0.3s">
           <div class="cargo-image">
-            <img src="/shiplog_web/images/hero-background.jpg" alt="Carga general seca" />
+            <Image src={cargaGeneralImg} alt="Carga general seca" loading="lazy" />
             <div class="cargo-overlay"></div>
           </div>
           <div class="cargo-content">
@@ -215,7 +231,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="cargo-card fade-in" style="transition-delay: 0.4s">
           <div class="cargo-image">
-            <img src="/shiplog_web/images/hero-background.jpg" alt="Contenedores" />
+            <Image src={transporteContenedoresImg} alt="Contenedores" loading="lazy" />
             <div class="cargo-overlay"></div>
           </div>
           <div class="cargo-content">
@@ -241,7 +257,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="fleet-grid">
         <div class="fleet-card fade-in" style="transition-delay: 0.1s">
           <div class="fleet-image">
-            <img src="/shiplog_web/images/semirremolqueabierto.png" alt="Semirremolque abierto" />
+            <Image src={semirremolqueAbiertoImg} alt="Semirremolque abierto" loading="lazy" />
           </div>
           <div class="fleet-info">
             <h3>Semirremolque abierto</h3>
@@ -255,7 +271,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="fleet-card fade-in" style="transition-delay: 0.2s">
           <div class="fleet-image">
-            <img src="/shiplog_web/images/sider.png" alt="Sider" />
+            <Image src={siderImg} alt="Sider" loading="lazy" />
           </div>
           <div class="fleet-info">
             <h3>Sider</h3>
@@ -269,7 +285,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="fleet-card fade-in" style="transition-delay: 0.3s">
           <div class="fleet-image">
-            <img src="/shiplog_web/images/furgonseco.png" alt="Furgón seco" />
+            <Image src={furgonSecoImg} alt="Furgón seco" loading="lazy" />
           </div>
           <div class="fleet-info">
             <h3>Furgón seco</h3>
@@ -283,7 +299,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="fleet-card fade-in" style="transition-delay: 0.4s">
           <div class="fleet-image">
-            <img src="/shiplog_web/images/refrigerado.png" alt="Furgón refrigerado" />
+            <Image src={refrigeradoImg} alt="Furgón refrigerado" loading="lazy" />
           </div>
           <div class="fleet-info">
             <h3>Furgón refrigerado</h3>
@@ -297,7 +313,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="fleet-card fade-in" style="transition-delay: 0.5s">
           <div class="fleet-image">
-            <img src="/shiplog_web/images/camabaja.png" alt="Cama baja" />
+            <Image src={camaBajaImg} alt="Cama baja" loading="lazy" />
           </div>
           <div class="fleet-info">
             <h3>Cama baja</h3>
@@ -345,7 +361,8 @@ import Layout from '../layouts/Layout.astro';
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: url('/images/hero-background.jpg') center/cover;
+    background-size: cover;
+    background-position: center;
     opacity: 0.15;
   }
 

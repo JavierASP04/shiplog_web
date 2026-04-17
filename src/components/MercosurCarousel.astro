@@ -1,0 +1,256 @@
+---
+import { Image } from "astro:assets";
+import argentinaImg from "../assets/images/countries/argentina.avif";
+import brasilImg from "../assets/images/countries/brasil.avif";
+import uruguayImg from "../assets/images/countries/uruguay.avif";
+import paraguayImg from "../assets/images/countries/paraguay.avif";
+import chileImg from "../assets/images/countries/chile.avif";
+import peruImg from "../assets/images/countries/peru.avif";
+import colombiaImg from "../assets/images/countries/colombia.avif";
+import ecuadorImg from "../assets/images/countries/ecuador.avif";
+
+const countries = [
+  { name: "Argentina", flag: "🇦🇷", image: argentinaImg },
+  { name: "Brasil", flag: "🇧🇷", image: brasilImg },
+  { name: "Uruguay", flag: "🇺🇾", image: uruguayImg },
+  { name: "Paraguay", flag: "🇵🇾", image: paraguayImg },
+  { name: "Chile", flag: "🇨🇱", image: chileImg },
+  { name: "Perú", flag: "🇵🇪", image: peruImg },
+  { name: "Colombia", flag: "🇨🇴", image: colombiaImg },
+  { name: "Ecuador", flag: "🇪🇨", image: ecuadorImg },
+];
+
+// Duplicamos los países para el efecto de scroll infinito
+const displayCountries = [...countries, ...countries];
+---
+
+<section class="mercosur-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2>Envíos a todo Mercosur</h2>
+      <p class="subtitle">Conectamos tu carga con los principales destinos del continente con la mayor eficiencia y seguridad.</p>
+    </div>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel-track">
+      {displayCountries.map((country) => (
+        <div class="country-card">
+          <div class="image-wrapper">
+            <Image 
+              src={country.image} 
+              alt={`Envíos a ${country.name}`} 
+              width={600}
+              height={800}
+              format="avif"
+              quality={80}
+              loading="lazy" 
+            />
+            <div class="overlay">
+              <div class="country-name">
+                <span class="flag">{country.flag}</span>
+                <h3>{country.name}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="carousel-footer fade-in">
+    <div class="container">
+      <div class="footer-content">
+        <p class="count-text">Actualmente cubrimos <strong>{countries.length} países</strong> en toda la región con logística de primer nivel.</p>
+        <a href="/shiplog_web/cotizar" class="cta-button">
+          <span>Cotizar mi Envío</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mercosur-section {
+    padding: 6rem 0;
+    background: #f8fafc;
+    overflow: hidden;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .subtitle {
+    color: var(--gray);
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .carousel-container {
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+    margin-bottom: 4rem;
+  }
+
+  .carousel-footer {
+    text-align: center;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .count-text {
+    font-size: 1.5rem;
+    color: var(--dark);
+    max-width: 600px;
+  }
+
+  .count-text strong {
+    color: var(--primary);
+    font-weight: 800;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    padding: 1.2rem 3rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(30,58,138,0.3);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(30,58,138,0.4);
+  }
+
+  .cta-button svg {
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(5px);
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+  }
+
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Se mueve exactamente la mitad del ancho total del track */
+      transform: translateX(calc(-50% - 15px));
+    }
+  }
+
+  .country-card {
+    width: 350px;
+    height: 450px;
+    flex-shrink: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+  }
+
+  .country-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(30,58,138,0.2);
+  }
+
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .country-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2.5rem;
+    transition: background 0.3s ease;
+  }
+
+  .country-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: white;
+  }
+
+  .flag {
+    font-size: 2.5rem;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  .country-name h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  @media (max-width: 768px) {
+    .mercosur-section {
+      padding: 4rem 0;
+    }
+    
+    .country-card {
+      width: 280px;
+      height: 380px;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+  }
+</style>
