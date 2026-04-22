@@ -60,6 +60,7 @@ const countries = [
         
         <form class="quote-form" id="quoteForm">
           <div class="form-grid">
+            <!-- Datos de Contacto -->
             <div class="form-group">
               <label for="company">Empresa *</label>
               <input type="text" id="company" name="company" required placeholder="Nombre de tu empresa" />
@@ -79,7 +80,8 @@ const countries = [
               <label for="phone">Teléfono *</label>
               <input type="tel" id="phone" name="phone" required placeholder="+XX XXX XXX XXXX" />
             </div>
-            
+
+            <!-- Detalles del Envío -->
             <div class="form-group">
               <label for="origin">País de Origen *</label>
               <select id="origin" name="origin" required>
@@ -104,32 +106,44 @@ const countries = [
             </div>
             
             <div class="form-group">
+              <label for="serviceType">Tipo de Servicio *</label>
+              <select id="serviceType" name="serviceType" required>
+                <option value="">Seleccione...</option>
+                <option value="puerta-puerta">🏠 Puerta a Puerta</option>
+                <option value="puerta-puerto">🛳️ Puerta a Puerto</option>
+                <option value="puerto-puerto">⚓ Puerto a Puerto</option>
+                <option value="puerto-puerta">🏗️ Puerto a Puerta</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="shippingType">Tipo de Envío *</label>
+              <select id="shippingType" name="shippingType" required>
+                <option value="">Seleccione...</option>
+                <option value="aereo">✈️ Aéreo</option>
+                <option value="maritimo">🚢 Marítimo</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
               <label for="weight">Peso Estimado (Toneladas) *</label>
               <input type="number" id="weight" name="weight" min="0" step="0.1" required placeholder="0.0" />
             </div>
-            
-            <div class="form-group">
-              <label for="urgency">Urgencia *</label>
-              <select id="urgency" name="urgency" required>
-                <option value="">Seleccione...</option>
-                <option value="normal">📅 Normal (15-30 días)</option>
-                <option value="express">⚡ Express (7-15 días)</option>
-                <option value="urgent">🚨 Urgente (3-7 días)</option>
-              </select>
+
+            <div class="form-group full-width">
+              <label for="details">Detalles Adicionales</label>
+              <textarea id="details" name="details" rows="3" placeholder="Dimensiones, fechas, etc."></textarea>
             </div>
           </div>
           
-          <div class="form-group full-width">
-            <label for="details">Detalles Adicionales</label>
-            <textarea id="details" name="details" rows="4" placeholder="Describa su carga, dimensiones especiales, fechas requeridas, etc."></textarea>
+          <div class="form-footer">
+            <button type="submit" class="btn-submit">
+              <span>Enviar Cotización</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
-          
-          <button type="submit" class="btn-submit">
-            <span>Enviar Solicitud</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
         </form>
       </div>
     </div>
@@ -152,29 +166,17 @@ const countries = [
     z-index: -2;
   }
 
-  .quote-background::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    /* AQUÍ VA TU IMAGEN DE FONDO */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.15; /* Ajusta la transparencia (0.1 = muy transparente, 0.3 = más visible) */
-    z-index: -1;
-  }
-
   .quote-background::after {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
   }
 
   .quote-container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 0 20px;
     width: 100%;
@@ -190,109 +192,101 @@ const countries = [
 
   .step-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     color: white;
   }
 
   .step-header h1 {
-    font-size: 3.5rem;
-    font-weight: 900;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
     color: white;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
     letter-spacing: -1px;
   }
 
   .step-header p {
-    font-size: 1.3rem;
-    opacity: 0.95;
+    font-size: 1.1rem;
+    opacity: 0.9;
   }
 
   .highlight {
     color: #FFD700;
-    font-weight: 800;
+    font-weight: 700;
   }
 
   .back-button {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
     color: white;
-    border: 2px solid rgba(255,255,255,0.3);
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     backdrop-filter: blur(10px);
   }
 
   .back-button:hover {
-    background: rgba(255,255,255,0.3);
-    transform: translateX(-5px);
+    background: rgba(255,255,255,0.2);
+    transform: translateX(-3px);
   }
 
   .countries-selector {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
   }
 
   .country-option {
     background: white;
-    border: 3px solid transparent;
-    padding: 2rem 1.5rem;
-    border-radius: 20px;
+    border: 2px solid transparent;
+    padding: 1.5rem;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   }
 
   .country-option:hover {
-    transform: translateY(-10px);
-    border-color: #FFD700;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    transform: translateY(-5px);
+    border-color: #1e3a8a;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   }
 
   .country-flag {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .country-name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--dark);
+    color: #1e293b;
   }
 
   .country-arrow {
-    color: var(--primary);
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-
-  .country-option:hover .country-arrow {
-    opacity: 1;
-    transform: translateX(5px);
+    color: #1e3a8a;
+    opacity: 0.5;
   }
 
   .quote-form {
     background: white;
-    padding: 3rem;
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
   }
 
   .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1.25rem;
   }
 
   .form-group {
@@ -306,42 +300,55 @@ const countries = [
 
   label {
     font-weight: 700;
-    margin-bottom: 0.75rem;
-    color: var(--dark);
-    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: #334155;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   input, select, textarea {
-    padding: 1rem 1.25rem;
-    border: 2px solid var(--light);
-    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: white;
+    background: #f8fafc;
+    color: #1e293b;
   }
 
   input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: #1e3a8a;
-    box-shadow: 0 0 0 4px rgba(30,58,138,0.1);
+    box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+    background: white;
   }
 
   textarea {
     resize: vertical;
-    font-family: inherit;
+    min-height: 80px;
   }
 
   select {
     cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%231e3a8a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .form-footer {
+    margin-top: 2rem;
   }
 
   .btn-submit {
     width: 100%;
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    background: #1e3a8a;
     color: white;
-    padding: 1.3rem 2rem;
+    padding: 1.1rem;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
@@ -350,99 +357,37 @@ const countries = [
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    box-shadow: 0 10px 30px rgba(30,58,138,0.4);
   }
 
   .btn-submit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(30,58,138,0.5);
+    background: #1e40af;
+    transform: translateY(-2px);
   }
 
   @media (max-width: 768px) {
     .quote-page {
-      padding: 6rem 0 3rem;
-    }
-
-    .step-header {
-      margin-bottom: 1.5rem;
-      text-align: center;
+      padding: 6rem 0 2rem;
     }
 
     .step-header h1 {
       font-size: 2.2rem;
-      line-height: 1.2;
-    }
-
-    .step-header p {
-      font-size: 1.05rem;
-    }
-
-    .back-button {
-      padding: 0.6rem 1rem;
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      border-radius: 8px;
     }
 
     .countries-selector {
       grid-template-columns: 1fr;
-      gap: 0.75rem; 
     }
 
     .country-option {
-      padding: 1rem 1.25rem; 
-      flex-direction: row; 
-      justify-content: flex-start;
-      border-radius: 16px;
-    }
-
-    .country-flag {
-      font-size: 1.8rem;
-    }
-
-    .country-name {
-      font-size: 1.05rem;
-    }
-
-    .country-arrow {
-      margin-left: auto; 
-      opacity: 1; 
-      transform: translateX(0);
+      flex-direction: row;
+      padding: 1rem;
     }
 
     .form-grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
     }
 
     .quote-form {
       padding: 1.5rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra más suave en móvil */
-    }
-
-    .form-group label {
-      font-size: 0.85rem;
-      margin-bottom: 0.4rem;
-      color: #334155;
-    }
-
-    input, select, textarea {
-      padding: 0.85rem 1rem;
-      font-size: 16px; /* 16px evita que Safari en iOS haga auto-zoom al tocar el input */
-      border: 1px solid #cbd5e1;
-      background: #f8fafc;
-      border-radius: 10px;
-    }
-
-    textarea {
-      min-height: 80px; /* Textarea menos alto en móvil para no robar pantalla */
-    }
-
-    .btn-submit {
-      padding: 1.1rem 1.5rem;
-      font-size: 1rem;
-      margin-top: 0.5rem;
     }
   }
 </style>
@@ -458,7 +403,6 @@ const countries = [
     const selectedCountrySpan = document.getElementById('selectedCountry');
     const quoteForm = document.getElementById('quoteForm');
 
-    // Selección de país
     countryOptions.forEach(option => {
       option.addEventListener('click', () => {
         const countryCode = option.getAttribute('data-country');
@@ -476,17 +420,15 @@ const countries = [
       });
     });
 
-    // Botón volver
     backBtn?.addEventListener('click', () => {
       step2?.classList.remove('active');
       step1?.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Envío del formulario
     quoteForm?.addEventListener('submit', (e) => {
       e.preventDefault();
-      alert(`¡Solicitud enviada! Destino: ${selectedDestination}\nNos contactaremos contigo pronto.`);
+      alert(`¡Solicitud enviada! Nos contactaremos contigo pronto.`);
       window.location.href = '/';
     });
   });
