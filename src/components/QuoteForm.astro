@@ -7,75 +7,100 @@
     <p class="section-subtitle fade-in">Complete el formulario y nos contactaremos con usted en menos de 24 horas</p>
     
     <form class="form scale-in" id="quoteForm">
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="company">Empresa *</label>
-          <input type="text" id="company" name="company" required placeholder="Nombre de su empresa" />
+      <div class="form-sections">
+        <!-- Sección 1: Datos de Contacto -->
+        <div class="form-section-block">
+          <h3 class="form-section-title">
+            <span class="title-icon">👤</span> Datos de Contacto
+          </h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="company">Empresa *</label>
+              <input type="text" id="company" name="company" required placeholder="Nombre de su empresa" />
+            </div>
+            
+            <div class="form-group">
+              <label for="contact">Nombre de Contacto *</label>
+              <input type="text" id="contact" name="contact" required placeholder="Su nombre completo" />
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required placeholder="correo@empresa.com" />
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Teléfono *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+XX XXX XXX XXXX" />
+            </div>
+          </div>
         </div>
-        
-        <div class="form-group">
-          <label for="contact">Nombre de Contacto *</label>
-          <input type="text" id="contact" name="contact" required placeholder="Su nombre completo" />
-        </div>
-        
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" name="email" required placeholder="correo@empresa.com" />
-        </div>
-        
-        <div class="form-group">
-          <label for="phone">Teléfono *</label>
-          <input type="tel" id="phone" name="phone" required placeholder="+XX XXX XXX XXXX" />
-        </div>
-        
-        <div class="form-group">
-          <label for="origin">País de Origen *</label>
-          <select id="origin" name="origin" required>
-            <option value="">Seleccione...</option>
-            <option value="argentina">🇦🇷 Argentina</option>
-            <option value="brasil">🇧🇷 Brasil</option>
-            <option value="chile">🇨🇱 Chile</option>
-            <option value="ecuador">🇪🇨 Ecuador</option>
-            <option value="paraguay">🇵🇾 Paraguay</option>
-            <option value="peru">🇵🇪 Perú</option>
-            <option value="uruguay">🇺🇾 Uruguay</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="destination">País de Destino *</label>
-          <select id="destination" name="destination" required>
-            <option value="">Seleccione...</option>
-            <option value="argentina">🇦🇷 Argentina</option>
-            <option value="brasil">🇧🇷 Brasil</option>
-            <option value="chile">🇨🇱 Chile</option>
-            <option value="ecuador">🇪🇨 Ecuador</option>
-            <option value="paraguay">🇵🇾 Paraguay</option>
-            <option value="peru">🇵🇪 Perú</option>
-            <option value="uruguay">🇺🇾 Uruguay</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="cargoType">Tipo de Carga *</label>
-          <select id="cargoType" name="cargoType" required>
-            <option value="">Seleccione...</option>
-            <option value="maquinaria">🏗️ Maquinaria Pesada</option>
-            <option value="construccion">🧱 Materiales de Construcción</option>
-            <option value="mineria">⛏️ Equipos Mineros</option>
-            <option value="agricola">🌾 Maquinaria Agrícola</option>
-            <option value="industrial">🏭 Equipos Industriales</option>
-            <option value="otro">📦 Otro</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="weight">Peso Estimado (Toneladas) *</label>
-          <input type="number" id="weight" name="weight" min="0" step="0.1" required placeholder="0.0" />
+
+        <!-- Sección 2: Detalles del Envío -->
+        <div class="form-section-block">
+          <h3 class="form-section-title">
+            <span class="title-icon">📦</span> Detalles del Envío
+          </h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="origin">País de Origen *</label>
+              <select id="origin" name="origin" required>
+                <option value="">Seleccione...</option>
+                <option value="argentina">🇦🇷 Argentina</option>
+                <option value="brasil">🇧🇷 Brasil</option>
+                <option value="chile">🇨🇱 Chile</option>
+                <option value="ecuador">🇪🇨 Ecuador</option>
+                <option value="paraguay">🇵🇾 Paraguay</option>
+                <option value="peru">🇵🇪 Perú</option>
+                <option value="uruguay">🇺🇾 Uruguay</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="destination">País de Destino *</label>
+              <select id="destination" name="destination" required>
+                <option value="">Seleccione...</option>
+                <option value="argentina">🇦🇷 Argentina</option>
+                <option value="brasil">🇧🇷 Brasil</option>
+                <option value="chile">🇨🇱 Chile</option>
+                <option value="ecuador">🇪🇨 Ecuador</option>
+                <option value="paraguay">🇵🇾 Paraguay</option>
+                <option value="peru">🇵🇪 Perú</option>
+                <option value="uruguay">🇺🇾 Uruguay</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="cargoType">Tipo de Carga *</label>
+              <select id="cargoType" name="cargoType" required>
+                <option value="">Seleccione...</option>
+                <option value="maquinaria">🏗️ Maquinaria Pesada</option>
+                <option value="construccion">🧱 Materiales de Construcción</option>
+                <option value="mineria">⛏️ Equipos Mineros</option>
+                <option value="agricola">🌾 Maquinaria Agrícola</option>
+                <option value="industrial">🏭 Equipos Industriales</option>
+                <option value="otro">📦 Otro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="shippingType">Tipo de Envío *</label>
+              <select id="shippingType" name="shippingType" required>
+                <option value="">Seleccione...</option>
+                <option value="aereo">✈️ Aéreo</option>
+                <option value="maritimo">🚢 Marítimo</option>
+              </select>
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="weight">Peso Estimado (Toneladas) *</label>
+              <input type="number" id="weight" name="weight" min="0" step="0.1" required placeholder="0.0" />
+            </div>
+          </div>
         </div>
       </div>
       
-      <div class="form-group full-width">
+      <div class="form-group full-width" style="margin-top: 1.5rem;">
         <label for="details">Detalles Adicionales</label>
         <textarea id="details" name="details" rows="4" placeholder="Describa su carga, dimensiones especiales, fechas requeridas, etc."></textarea>
       </div>
@@ -115,11 +140,47 @@
     border: 2px solid rgba(0,102,255,0.1);
   }
 
+  .form-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .form-section-block {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .form-section-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+  }
+
+  .title-icon {
+    background: white;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-size: 1.2rem;
+  }
+
   .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
   }
 
   .form-group {
@@ -135,7 +196,9 @@
     font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--dark);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   input, select, textarea {
@@ -179,10 +242,11 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
   }
 
   .btn-submit {
+    width: 100%;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     padding: 1.2rem 3rem;
@@ -194,6 +258,7 @@
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     box-shadow: 0 10px 30px rgba(0,102,255,0.3);
   }
@@ -222,6 +287,10 @@
     .form-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
+    }
+
+    .form-section-block {
+      padding: 1.5rem;
     }
   }
 </style>
