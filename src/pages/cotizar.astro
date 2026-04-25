@@ -63,79 +63,134 @@ const countries = [
             <!-- Datos de Contacto -->
             <div class="form-group">
               <label for="company">Empresa *</label>
-              <input type="text" id="company" name="company" required placeholder="Nombre de tu empresa" />
+              <input type="text" id="company" name="01_Empresa" required placeholder="Nombre de tu empresa" />
             </div>
             
             <div class="form-group">
               <label for="contact">Nombre de Contacto *</label>
-              <input type="text" id="contact" name="contact" required placeholder="Tu nombre completo" />
+              <input type="text" id="contact" name="02_Contacto" required placeholder="Tu nombre completo" />
             </div>
             
             <div class="form-group">
               <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required placeholder="correo@empresa.com" />
+              <input type="email" id="email" name="03_Email" required placeholder="correo@empresa.com" />
             </div>
             
             <div class="form-group">
               <label for="phone">Teléfono *</label>
-              <input type="tel" id="phone" name="phone" required placeholder="+XX XXX XXX XXXX" />
+              <input type="tel" id="phone" name="04_Telefono" required placeholder="+XX XXX XXX XXXX" />
             </div>
 
             <!-- Detalles del Envío -->
             <div class="form-group">
               <label for="origin">País de Origen *</label>
-              <select id="origin" name="origin" required>
+              <select id="origin" name="05_Pais_Origen" required>
                 <option value="">Seleccione...</option>
                 {countries.map(country => (
-                  <option value={country.code}>{country.flag} {country.name}</option>
+                  <option value={country.name}>{country.flag} {country.name}</option>
                 ))}
               </select>
             </div>
-            
+
+            <div class="form-group full-width">
+              <label for="shippingType">Tipo de Envío *</label>
+              <select id="shippingType" name="06_Tipo_Transporte" required>
+                <option value="">Seleccione...</option>
+                <option value="maritimo">🚢 Marítimo</option>
+                <option value="aereo">✈️ Aéreo</option>
+                <option value="terrestre">🚛 Terrestre</option>
+              </select>
+            </div>
+
+            <!-- Campos Condicionales: Marítimo -->
+            <div id="ship-maritimo" class="conditional-fields" style="display: none;">
+                <div class="form-group">
+                  <label for="seaType">Modalidad Marítima *</label>
+                  <select id="seaType" name="07_Detalle_Maritimo">
+                    <option value="">Seleccione...</option>
+                    <option value="FCL (Contenedor Completo)">FCL (Contenedor Completo)</option>
+                    <option value="LCL (Consolidado)">LCL (Consolidado)</option>
+                  </select>
+                </div>
+            </div>
+
+            <!-- Campos Condicionales: Aéreo -->
+            <div id="ship-aereo" class="conditional-fields air-grid" style="display: none;">
+                <div class="form-group">
+                  <label for="airPieces">Número de piezas *</label>
+                  <input type="text" id="airPieces" name="07_Aereo_Piezas" placeholder="Ej: 5 bultos" />
+                </div>
+                <div class="form-group">
+                  <label for="airDimensions">Dimensiones (cm) *</label>
+                  <input type="text" id="airDimensions" name="08_Aereo_Dimensiones" placeholder="Largo x Ancho x Alto" />
+                </div>
+                <div class="form-group">
+                  <label for="airWeight">Peso Bruto Total (kg) *</label>
+                  <input type="text" id="airWeight" name="09_Aereo_Peso_Kg" placeholder="0 kg" />
+                </div>
+                <p class="help-text">💡 Si no tienes medidas exactas, puedes estimar.</p>
+            </div>
+
+            <!-- Campos Condicionales: Terrestre -->
+            <div id="ship-terrestre" class="conditional-fields land-grid" style="display: none;">
+                <div class="form-group">
+                  <label for="landType">Modalidad Terrestre *</label>
+                  <select id="landType" name="07_Terrestre_Modalidad">
+                    <option value="">Seleccione...</option>
+                    <option value="FTL (Camión Completo)">FTL (Camión Completo)</option>
+                    <option value="LTL (Carga Parcial)">LTL (Carga Parcial)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="truckType">Tipo de Camión *</label>
+                  <select id="truckType" name="08_Terrestre_Tipo_Camion">
+                    <option value="">Seleccione...</option>
+                    <option value="Rampla">Rampla</option>
+                    <option value="Sider">Sider</option>
+                    <option value="Refrigerado">Refrigerado</option>
+                    <option value="Plataforma">Plataforma</option>
+                  </select>
+                </div>
+            </div>
+
             <div class="form-group">
               <label for="cargoType">Tipo de Carga *</label>
-              <select id="cargoType" name="cargoType" required>
+              <select id="cargoType" name="10_Tipo_Carga" required>
                 <option value="">Seleccione...</option>
-                <option value="maquinaria">🏗️ Maquinaria Pesada</option>
-                <option value="construccion">🧱 Materiales de Construcción</option>
-                <option value="mineria">⛏️ Equipos Mineros</option>
-                <option value="agricola">🌾 Maquinaria Agrícola</option>
-                <option value="industrial">🏭 Equipos Industriales</option>
-                <option value="otro">📦 Otro</option>
+                <option value="Maquinaria Pesada">🏗️ Maquinaria Pesada</option>
+                <option value="Construcción">🧱 Materiales de Construcción</option>
+                <option value="Minería">⛏️ Equipos Mineros</option>
+                <option value="Agrícola">🌾 Maquinaria Agrícola</option>
+                <option value="Industrial">🏭 Equipos Industriales</option>
+                <option value="Otro">📦 Otro</option>
               </select>
             </div>
             
             <div class="form-group">
               <label for="serviceType">Tipo de Servicio *</label>
-              <select id="serviceType" name="serviceType" required>
+              <select id="serviceType" name="11_Tipo_Servicio" required>
                 <option value="">Seleccione...</option>
-                <option value="puerta-puerta">🏠 Puerta a Puerta</option>
-                <option value="puerta-puerto">🛳️ Puerta a Puerto</option>
-                <option value="puerto-puerto">⚓ Puerto a Puerto</option>
-                <option value="puerto-puerta">🏗️ Puerto a Puerta</option>
+                <option value="Puerta a Puerta">🏠 Puerta a Puerta</option>
+                <option value="Puerta a Puerto">🛳️ Puerta a Puerto</option>
+                <option value="Puerto a Puerto">⚓ Puerto a Puerto</option>
+                <option value="Puerto a Puerta">🏗️ Puerto a Puerta</option>
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="shippingType">Tipo de Envío *</label>
-              <select id="shippingType" name="shippingType" required>
-                <option value="">Seleccione...</option>
-                <option value="aereo">✈️ Aéreo</option>
-                <option value="maritimo">🚢 Marítimo</option>
-              </select>
-            </div>
-
-            <div class="form-group full-width">
-              <label for="weight">Peso Estimado (Toneladas) *</label>
-              <input type="number" id="weight" name="weight" min="0" step="0.1" required placeholder="0.0" />
+            <div id="general-weight" class="form-group">
+              <label for="weight">Peso *</label>
+              <input type="number" id="weight" name="12_Peso_Toneladas" min="0" step="0.1" required placeholder="0.0" />
             </div>
 
             <div class="form-group full-width">
               <label for="details">Detalles Adicionales</label>
-              <textarea id="details" name="details" rows="3" placeholder="Dimensiones, fechas, etc."></textarea>
+              <textarea id="details" name="13_Detalles_Adicionales" rows="3" placeholder="Dimensiones, fechas, etc."></textarea>
             </div>
           </div>
           
+          <!-- Anti-spam Honeypot -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
           <div class="form-footer">
             <button type="submit" class="btn-submit">
               <span>Enviar Cotización</span>
@@ -149,6 +204,11 @@ const countries = [
     </div>
   </div>
 </Layout>
+
+<!-- Librerías para generación de PDF y envío de Email -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
   .quote-page {
@@ -390,6 +450,51 @@ const countries = [
       padding: 1.5rem;
     }
   }
+
+  /* Estilos para campos condicionales */
+  .conditional-fields {
+    grid-column: 1 / -1; /* Ocupar todo el ancho */
+    background: #f1f5f9;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px dashed #1e3a8a;
+    margin-bottom: 1rem;
+    display: grid;
+    gap: 1.25rem;
+    animation: fadeInDown 0.4s ease-out;
+  }
+
+  .air-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .land-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .help-text {
+    grid-column: 1 / -1;
+    font-size: 0.85rem;
+    color: #1e3a8a;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .air-grid, .land-grid, .conditional-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 
 <script>
@@ -401,7 +506,43 @@ const countries = [
     const countryOptions = document.querySelectorAll('.country-option');
     const backBtn = document.getElementById('backBtn');
     const selectedCountrySpan = document.getElementById('selectedCountry');
-    const quoteForm = document.getElementById('quoteForm');
+    const quoteForm = document.getElementById('quoteForm') as HTMLFormElement;
+    const shippingType = document.getElementById('shippingType') as HTMLSelectElement;
+
+    // Lógica de campos condicionales
+    shippingType?.addEventListener('change', () => {
+      const selected = shippingType.value;
+      const allConditional = document.querySelectorAll('.conditional-fields') as NodeListOf<HTMLElement>;
+      const generalWeight = document.getElementById('general-weight');
+
+      allConditional.forEach(el => {
+        el.style.display = 'none';
+        el.querySelectorAll('input, select').forEach(input => {
+          (input as HTMLInputElement | HTMLSelectElement).required = false;
+        });
+      });
+
+      if (selected) {
+        const target = document.getElementById(`ship-${selected}`);
+        if (target) {
+          target.style.display = 'block';
+          target.querySelectorAll('input, select').forEach(input => {
+            (input as HTMLInputElement | HTMLSelectElement).required = true;
+          });
+        }
+
+        // Ocultar peso general si es Aéreo
+        if (generalWeight) {
+          if (selected === 'aereo') {
+            generalWeight.style.display = 'none';
+            (generalWeight.querySelector('input') as HTMLInputElement).required = false;
+          } else {
+            generalWeight.style.display = 'block';
+            (generalWeight.querySelector('input') as HTMLInputElement).required = true;
+          }
+        }
+      }
+    });
 
     countryOptions.forEach(option => {
       option.addEventListener('click', () => {
@@ -409,7 +550,7 @@ const countries = [
         const countryName = option.querySelector('.country-name')?.textContent;
         const countryFlag = option.querySelector('.country-flag')?.textContent;
         
-        selectedDestination = countryCode || '';
+        selectedDestination = countryName || countryCode || '';
         if (selectedCountrySpan && countryName && countryFlag) {
           selectedCountrySpan.textContent = `${countryFlag} ${countryName}`;
         }
@@ -426,10 +567,216 @@ const countries = [
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    quoteForm?.addEventListener('submit', (e) => {
+    quoteForm?.addEventListener('submit', async (e) => {
       e.preventDefault();
-      alert(`¡Solicitud enviada! Nos contactaremos contigo pronto.`);
-      window.location.href = '/';
+      
+      const rawFormData = new FormData(quoteForm);
+      const cleanedFormData = new FormData();
+      const button = quoteForm.querySelector('.btn-submit') as HTMLButtonElement;
+      const originalContent = button.innerHTML;
+
+      // Generar ID de seguimiento único para usar en PDF y Email
+      const seguimientoID = Math.random().toString(36).substr(2, 9).toUpperCase();
+
+      // 1. GENERAR PDF PROFESIONAL PARA EL CLIENTE
+      try {
+        const { jsPDF } = (window as any).jspdf;
+        const doc = new jsPDF();
+        const blueColor = [30, 58, 138]; // Azul ShipLog #1e3a8a
+        
+        // --- CABECERA ---
+        doc.setFillColor(30, 58, 138);
+        doc.rect(0, 0, 210, 40, 'F');
+        
+        // Logo: Cargar y convertir a ALTA RESOLUCIÓN
+        try {
+          const img = new Image();
+          img.src = '/shiplog_web/images/logo.avif';
+          await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+          
+          // Escalamos el canvas (ej: x4) para obtener más DPI en el PDF
+          const scaleFactor = 4;
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width * scaleFactor;
+          canvas.height = img.height * scaleFactor;
+          const ctx = canvas.getContext('2d');
+          
+          if (ctx) {
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          }
+          
+          const imgData = canvas.toDataURL('image/png', 1.0);
+          
+          // Calculamos el ratio para que no se deforme
+          const imgRatio = img.width / img.height;
+          const logoWidth = 35; 
+          const logoHeight = logoWidth / imgRatio;
+          
+          doc.addImage(imgData, 'PNG', 15, 6, logoWidth, logoHeight, undefined, 'FAST'); 
+        } catch (e) {
+          console.error("Error cargando logo en PDF:", e);
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(24);
+          doc.setFont("helvetica", "bold");
+          doc.text("ShipLog", 15, 25);
+        }
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(18);
+        doc.setFont("helvetica", "bold");
+        doc.text("RESUMEN DE SOLICITUD", 200, 22, { align: "right" });
+        
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Seguimiento: ${seguimientoID}`, 200, 30, { align: "right" });
+        doc.text(`Fecha de Solicitud: ${new Date().toLocaleDateString()}`, 200, 35, { align: "right" });
+
+        // --- CUERPO ---
+        // Columna Izquierda: Información del Cliente
+        doc.setTextColor(30, 58, 138);
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        doc.text("INFORMACIÓN DEL CLIENTE", 15, 55);
+        doc.setDrawColor(200);
+        doc.line(15, 57, 95, 57);
+
+        doc.setTextColor(0);
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("Empresa:", 15, 65);
+        doc.text("Solicitante:", 15, 71);
+        doc.text("Email:", 15, 77);
+        doc.text("Teléfono:", 15, 83);
+
+        doc.setFont("helvetica", "normal");
+        doc.text(String(rawFormData.get('01_Empresa')), 45, 65);
+        doc.text(String(rawFormData.get('02_Contacto')), 45, 71);
+        doc.text(String(rawFormData.get('03_Email')), 45, 77);
+        doc.text(String(rawFormData.get('04_Telefono')), 45, 83);
+
+        // Columna Derecha: Detalles de la Ruta
+        doc.setTextColor(30, 58, 138);
+        doc.setFont("helvetica", "bold");
+        doc.text("DETALLES DE LA RUTA", 115, 55);
+        doc.line(115, 57, 195, 57);
+
+        doc.setTextColor(0);
+        doc.setFont("helvetica", "bold");
+        doc.text("País Origen:", 115, 65);
+        doc.text("País Destino:", 115, 71);
+        doc.text("Transporte:", 115, 77);
+        doc.text("Servicio:", 115, 83);
+
+        doc.setFont("helvetica", "normal");
+        doc.text(String(rawFormData.get('05_Pais_Origen')), 145, 65);
+        doc.text(selectedDestination, 145, 71);
+        doc.text(String(rawFormData.get('06_Tipo_Transporte')), 145, 77);
+        doc.text(String(rawFormData.get('11_Tipo_Servicio')), 145, 83);
+
+        // --- TABLA DE DETALLES TÉCNICOS ---
+        const tableData = [
+          ["Tipo de Carga", rawFormData.get('10_Tipo_Carga')],
+          ["Modalidad", rawFormData.get('07_Detalle_Maritimo') || rawFormData.get('07_Terrestre_Modalidad') || "Estándar"],
+          ["Contenedor/Camión", rawFormData.get('08_Terrestre_Tipo_Camion') || "N/A"],
+          ["Piezas/Dimensiones", rawFormData.get('07_Aereo_Piezas') ? `${rawFormData.get('07_Aereo_Piezas')} | ${rawFormData.get('08_Aereo_Dimensiones')} cm` : "Ver detalles adicionales"],
+          ["Peso Declarado", rawFormData.get('12_Peso_Toneladas') ? `${rawFormData.get('12_Peso_Toneladas')} Toneladas` : `${rawFormData.get('09_Aereo_Peso_Kg')} Kg`],
+        ];
+
+        (doc as any).autoTable({
+          startY: 95,
+          head: [['ESPECIFICACIÓN', 'VALOR']],
+          body: tableData.filter(row => row[1] && row[1] !== 'N/A'),
+          theme: 'grid',
+          headStyles: { fillColor: [30, 58, 138], fontSize: 10, halign: 'center' },
+          columnStyles: { 0: { fontStyle: 'bold', width: 50 }, 1: { halign: 'left' } },
+          margin: { left: 15, right: 15 }
+        });
+
+        // --- COMENTARIOS ---
+        const lastY = (doc as any).lastAutoTable.finalY + 15;
+        doc.setTextColor(30, 58, 138);
+        doc.setFont("helvetica", "bold");
+        doc.text("OBSERVACIONES ADICIONALES:", 15, lastY);
+        doc.setTextColor(50);
+        doc.setFont("helvetica", "normal");
+        const splitComments = doc.splitTextToSize(String(rawFormData.get('13_Detalles_Adicionales') || "Sin comentarios adicionales."), 180);
+        doc.text(splitComments, 15, lastY + 7);
+
+        // --- PIE DE PÁGINA ---
+        doc.setFontSize(8);
+        doc.setTextColor(150);
+        doc.text("Este documento es un resumen de los datos recibidos. Nuestro equipo procesará su solicitud", 105, 275, { align: "center" });
+        doc.text("y le enviará la cotización formal a través del email o teléfono proporcionado.", 105, 280, { align: "center" });
+        doc.setTextColor(30, 58, 138);
+        doc.setFont("helvetica", "bold");
+        doc.text("www.shiplog.cl", 105, 287, { align: "center" });
+        
+        // Descargar PDF
+        doc.save(`Cotizacion_ShipLog_${rawFormData.get('01_Empresa')}.pdf`);
+      } catch (pdfError) {
+        console.error("Error generating PDF:", pdfError);
+      }
+
+      const dataGrouped = {
+        empresa: rawFormData.get('01_Empresa'),
+        contacto: rawFormData.get('02_Contacto'),
+        email: rawFormData.get('03_Email'),
+        telefono: rawFormData.get('04_Telefono'),
+        origen: rawFormData.get('05_Pais_Origen'),
+        destino: selectedDestination,
+        transporte: rawFormData.get('06_Tipo_Transporte'),
+        carga: rawFormData.get('10_Tipo_Carga'),
+        servicio: rawFormData.get('11_Tipo_Servicio'),
+        peso_ton: rawFormData.get('12_Peso_Toneladas') || 'N/A',
+        aereo_piezas: rawFormData.get('07_Aereo_Piezas') || '',
+        aereo_dimensiones: rawFormData.get('08_Aereo_Dimensiones') || '',
+        aereo_peso_kg: rawFormData.get('09_Aereo_Peso_Kg') || '',
+        maritimo_modalidad: rawFormData.get('07_Detalle_Maritimo') || '',
+        terrestre_modalidad: rawFormData.get('07_Terrestre_Modalidad') || '',
+        terrestre_camion: rawFormData.get('08_Terrestre_Tipo_Camion') || '',
+        comentarios: rawFormData.get('13_Detalles_Adicionales') || "Sin comentarios adicionales.",
+        seguimiento_id: seguimientoID
+      };
+
+      try {
+        button.disabled = true;
+        button.innerHTML = '<span>Enviando...</span>';
+        
+        // ENVIO CON EMAILJS
+        const serviceID = 'service_1443jv8';
+        const templateID = 'template_hrl8yys';
+        const publicKey = 'JH5nemZkYaM-rE3iS';
+
+        // Mejorar el nombre que aparece en Gmail
+        const customFromName = `COTIZACIÓN: ${rawFormData.get('05_Pais_Origen')} ➡️ ${selectedDestination}`;
+
+        const result = await (window as any).emailjs.send(serviceID, templateID, {
+          ...dataGrouped,
+          from_name: customFromName
+        }, publicKey);
+
+        if (result.status === 200) {
+          button.innerHTML = '<span>✓ ¡Enviado!</span>';
+          button.style.background = '#37B34A';
+          
+          setTimeout(() => {
+            alert('¡Gracias por su solicitud! Su comprobante PDF se ha descargado y nos contactaremos con usted pronto.');
+            window.location.href = '/';
+          }, 1500);
+        } else {
+          throw new Error("Error en EmailJS");
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Hubo un error al enviar el formulario. Por favor, intente nuevamente.');
+        button.innerHTML = originalContent;
+        button.disabled = false;
+      }
     });
   });
 </script>
