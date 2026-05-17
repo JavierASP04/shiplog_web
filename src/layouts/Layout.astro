@@ -95,17 +95,12 @@ const getPageLink = (path: string) => `${baseUrl}${path}`;
           </div>
           
           <div class="footer-section">
-            <h4>Oficinas</h4>
-            <p><strong>🇧🇷 Brasil</strong><br>São Paulo • Uruguaiana</p>
-            <p><strong>🇦🇷 Argentina</strong><br>Buenos Aires</p>
-            <p><strong>🇨🇱 Chile</strong><br>Los Andes</p>
-          </div>
-          
-          <div class="footer-section">
             <h4>Contacto</h4>
-            <p>📧 contacto@shiplog.com</p>
-            <p>📞 +XX XXX XXX XXXX</p>
-            <p>⏰ Lun - Vie: 8:00 - 18:00</p>
+            <div class="footer-contact-info">
+              <p><span class="contact-icon">📧</span> <a href="mailto:logistica.global@shiplog.cl">logistica.global@shiplog.cl</a></p>
+              <p><span class="contact-icon">📞</span> <a href="tel:+XX XXX XXX XXXX">+XX XXX XXX XXXX</a></p>
+              <p><span class="contact-icon">⏰</span> <span>Lun - Vie: 8:00 - 18:00</span></p>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
@@ -383,7 +378,7 @@ const getPageLink = (path: string) => `${baseUrl}${path}`;
 
   .footer-content {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
     gap: 2.5rem;
     margin-bottom: 3rem;
   }
@@ -419,6 +414,27 @@ const getPageLink = (path: string) => `${baseUrl}${path}`;
     font-weight: 700;
     display: block;
     margin-bottom: 0.25rem;
+  }
+
+  .footer-contact-info p {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .footer-contact-info .contact-icon {
+    flex-shrink: 0;
+  }
+
+  .footer-contact-info a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    word-break: break-all;
+  }
+
+  .footer-contact-info a:hover {
+    text-decoration: underline;
   }
 
   .social-links {
