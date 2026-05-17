@@ -629,26 +629,190 @@ const countries = [
           const { jsPDF } = (window as any).jspdf;
           const doc = new jsPDF();
           
-          doc.setFillColor(30, 58, 138);
-          doc.rect(0, 0, 210, 40, 'F');
+          // 1. Cabecera (Navy Blue background)
+          doc.setFillColor(30, 58, 138); // Brand Primary Navy Blue
+          doc.rect(0, 0, 210, 38, 'F');
+          
+          // Línea dorada de acento
+          doc.setFillColor(255, 215, 0); // Accent Gold
+          doc.rect(0, 38, 210, 3, 'F');
+          
+          // Textos en Cabecera
+          doc.setTextColor(255, 255, 255);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(24);
+          doc.text("ShipLog", 15, 24);
+          
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9);
+          doc.setTextColor(220, 225, 235);
+          doc.text("SOLUCIONES LOGÍSTICAS DE CARGA PESADA", 15, 30);
           
           doc.setTextColor(255, 255, 255);
-          doc.setFontSize(22);
-          doc.text("ShipLog", 15, 25);
-          doc.setFontSize(14);
-          doc.text("RESUMEN DE SOLICITUD", 200, 25, { align: "right" });
-
-          doc.setTextColor(0);
-          doc.setFontSize(11);
-          doc.text(`Seguimiento: ${seguimientoID}`, 15, 55);
-          doc.text(`Empresa: ${dataGrouped.empresa}`, 15, 65);
-          doc.text(`Solicitante: ${dataGrouped.contacto}`, 15, 75);
-          doc.text(`Ruta: ${dataGrouped.origen} a ${dataGrouped.destino}`, 15, 85);
-          doc.text(`Transporte: ${dataGrouped.transporte}`, 15, 95);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(13);
+          doc.text("RESUMEN DE SOLICITUD", 195, 24, { align: "right" });
           
-          const comments = doc.splitTextToSize("Detalles: " + dataGrouped.comentarios, 180);
-          doc.text(comments, 15, 110);
-
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9);
+          doc.setTextColor(220, 225, 235);
+          doc.text("SUDAMÉRICA", 195, 30, { align: "right" });
+          
+          // 2. Metadatos de la Solicitud
+          doc.setTextColor(51, 65, 85); // Slate 700
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(10);
+          doc.text("CÓDIGO DE SEGUIMIENTO:", 15, 52);
+          
+          doc.setTextColor(30, 58, 138); // Navy
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(11);
+          doc.text(seguimientoID, 65, 52);
+          
+          doc.setTextColor(100, 116, 139); // Slate 500
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(10);
+          const fechaActual = new Date().toLocaleDateString('es-ES', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          doc.text(`Fecha de Emisión: ${fechaActual}`, 195, 52, { align: "right" });
+          
+          // Línea divisoria sutil
+          doc.setDrawColor(226, 232, 240);
+          doc.setLineWidth(0.5);
+          doc.line(15, 57, 195, 57);
+          
+          // 3. Preparación de Filas para Tablas
+          const clientRows = [
+            ["Empresa", dataGrouped.empresa || "N/A"],
+            ["Contacto de Solicitud", dataGrouped.contacto || "N/A"],
+            ["Correo Electrónico", dataGrouped.email || "N/A"],
+            ["Teléfono de Contacto", dataGrouped.telefono || "N/A"]
+          ];
+          
+          const getTransportLabel = (t) => {
+            if (t === 'maritimo') return 'Marítimo 🚢';
+            if (t === 'aereo') return 'Aéreo ✈️';
+            if (t === 'terrestre') return 'Terrestre 🚛';
+            return t;
+          };
+          
+          const shippingRows = [
+            ["Origen del Envío", dataGrouped.origen || "N/A"],
+            ["Destino del Envío", dataGrouped.destino || "N/A"],
+            ["Tipo de Transporte", getTransportLabel(dataGrouped.transporte)],
+            ["Tipo de Carga", dataGrouped.carga || "N/A"],
+            ["Tipo de Servicio", dataGrouped.servicio || "N/A"]
+          ];
+          
+          if (dataGrouped.transporte === 'maritimo') {
+            shippingRows.push(["Modalidad Marítima", dataGrouped.maritimo_modalidad || "N/A"]);
+            shippingRows.push(["Peso Bruto Estimado", `${dataGrouped.peso_ton} Toneladas`]);
+          } else if (dataGrouped.transporte === 'terrestre') {
+            shippingRows.push(["Modalidad Terrestre", dataGrouped.terrestre_modalidad || "N/A"]);
+            shippingRows.push(["Tipo de Vehículo / Camión", dataGrouped.terrestre_camion || "N/A"]);
+            shippingRows.push(["Peso Bruto Estimado", `${dataGrouped.peso_ton} Toneladas`]);
+          } else if (dataGrouped.transporte === 'aereo') {
+            shippingRows.push(["Cantidad de Bultos / Piezas", dataGrouped.aereo_piezas || "N/A"]);
+            shippingRows.push(["Dimensiones Totales", dataGrouped.aereo_dimensiones || "N/A"]);
+            shippingRows.push(["Peso Total Declarado", `${dataGrouped.aereo_peso_kg} Kg`]);
+          }
+          
+          // 4. Tabla 1: Datos del Cliente (jspdf-autotable)
+          (doc as any).autoTable({
+            startY: 63,
+            theme: 'grid',
+            head: [['CONCEPTOS - CLIENTE', 'DETALLES']],
+            body: clientRows,
+            styles: { 
+              font: 'helvetica', 
+              fontSize: 9.5, 
+              cellPadding: 4.5,
+              valign: 'middle'
+            },
+            headStyles: { 
+              fillColor: [30, 58, 138], 
+              textColor: [255, 255, 255], 
+              fontStyle: 'bold',
+              fontSize: 10
+            },
+            columnStyles: {
+              0: { fontStyle: 'bold', width: 55, fillColor: [248, 250, 252] },
+              1: { fillColor: [255, 255, 255] }
+            },
+            gridLineColor: [226, 232, 240],
+            lineWidth: 0.5
+          });
+          
+          let nextY = (doc as any).lastAutoTable.finalY + 8;
+          
+          // 5. Tabla 2: Detalles del Envío (jspdf-autotable)
+          (doc as any).autoTable({
+            startY: nextY,
+            theme: 'grid',
+            head: [['DETALLES DE LA CARGA', 'VALORES']],
+            body: shippingRows,
+            styles: { 
+              font: 'helvetica', 
+              fontSize: 9.5, 
+              cellPadding: 4.5,
+              valign: 'middle'
+            },
+            headStyles: { 
+              fillColor: [30, 58, 138], 
+              textColor: [255, 255, 255], 
+              fontStyle: 'bold',
+              fontSize: 10
+            },
+            columnStyles: {
+              0: { fontStyle: 'bold', width: 55, fillColor: [248, 250, 252] },
+              1: { fillColor: [255, 255, 255] }
+            },
+            gridLineColor: [226, 232, 240],
+            lineWidth: 0.5
+          });
+          
+          nextY = (doc as any).lastAutoTable.finalY + 8;
+          
+          // 6. Sección de Comentarios
+          doc.setFillColor(248, 250, 252);
+          doc.setDrawColor(226, 232, 240);
+          doc.setLineWidth(0.5);
+          
+          const commentText = "Detalles y Requerimientos Adicionales:\n" + dataGrouped.comentarios;
+          const splitComment = doc.splitTextToSize(commentText, 170);
+          const boxHeight = (splitComment.length * 5.5) + 12;
+          
+          // Dibujar caja contenedora
+          doc.rect(15, nextY, 180, boxHeight, 'FD');
+          
+          // Dibujar línea de acento izquierda
+          doc.setFillColor(30, 58, 138);
+          doc.rect(15, nextY, 2.5, boxHeight, 'F');
+          
+          // Imprimir texto de comentarios
+          doc.setTextColor(51, 65, 85);
+          doc.setFontSize(9.5);
+          doc.setFont('helvetica', 'normal');
+          doc.text(splitComment, 23, nextY + 7.5);
+          
+          // 7. Pie de Página Fijo
+          doc.setDrawColor(226, 232, 240);
+          doc.setLineWidth(0.5);
+          doc.line(15, 272, 195, 272);
+          
+          doc.setTextColor(148, 163, 184); // Slate 400
+          doc.setFontSize(8);
+          doc.text("Este es un comprobante oficial de su solicitud de cotización registrada en nuestro sistema.", 105, 278, { align: "center" });
+          doc.setTextColor(100, 116, 139); // Slate 500
+          doc.setFontSize(8.5);
+          doc.text("ShipLog SpA • Los Andes, Chile • logistica.global@shiplog.cl • www.shiplog.cl", 105, 284, { align: "center" });
+          
+          // Guardar PDF
           doc.save(`ShipLog_Cotizacion_${seguimientoID}.pdf`);
         } catch (pdfErr) {
           console.error("Error PDF:", pdfErr);
